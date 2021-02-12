@@ -30,3 +30,7 @@
 *.exe
 *.out
 *.app
+*.gb
+
+# test Files
+test.*

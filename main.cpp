@@ -8,7 +8,8 @@ std::string name;
 
 int main(int argc, char const *argv[])
 {
-    Ram test = Ram("cpu_instrs.gb");
+    Logger logger = Logger("gb-emu", false, 0);
+    Ram test = Ram("cpu_instrs.gb", false, 0);
     std::stringstream ssName;
 
     for (uint16_t i = 0x0134; i < 0x0143; i++)
@@ -17,6 +18,6 @@ int main(int argc, char const *argv[])
     }
 
     name = ssName.str();
-    std::cout << "Current Game is: " << name << "\n";
+    logger.log(1, "Main", "Current Game is: "+ name);
     return 0;
 }

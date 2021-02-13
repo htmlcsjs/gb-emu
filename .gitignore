@@ -32,5 +32,9 @@
 *.app
 *.gb
 
-# test Files
+# Test Files
 test.*
+
+# Logfiles
+log.*
+*.log

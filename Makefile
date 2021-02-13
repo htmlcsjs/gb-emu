@@ -16,5 +16,5 @@ install:
 
 clean:
 	$(RM) main.out
-	$(RM) subprogram.o
+	$(RM) ram.o
 	$(RM) test.out

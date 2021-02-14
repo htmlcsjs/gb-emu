@@ -11,12 +11,16 @@ private:
     std::string subsystem;
 
     // CPU Registors
-    uint16_t AF;
-    uint16_t BC;
-    uint16_t DE;
-    uint16_t HL;
-    uint16_t SP;
+    uint8_t regA;
+    uint8_t regB;
+    uint8_t regC;
+    uint8_t regD;
+    uint8_t regE;
+    uint8_t regH;
+    uint8_t regL;
+    uint8_t flags;
     uint16_t PC;
+    uint16_t SP;
     
 public:
     Cpu(Ram* ramPtr, Logger * loggerPtr);

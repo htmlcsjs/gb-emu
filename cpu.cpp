@@ -13,10 +13,15 @@ Cpu::Cpu(Ram *ramPtr, Logger *loggerPointer)
     ram->write(0xff02, (std::byte)0x81);
 
     // Registor Initisation
-    AF = 0x0000;
-    BC = 0x0000;
-    DE = 0x0000;
-    HL = 0x0000;
+    
+    regA = 0x00;
+    regB = 0x00;
+    regC = 0x00;
+    regD = 0x00;
+    regE = 0x00;
+    regH = 0x00;
+    regL = 0x00;
+    flags = 0b0000000;
     SP = 0x0000;
     PC = 0x0100;
 
@@ -37,19 +42,30 @@ void Cpu::loop() // Main loop function;
     // main switch case for interpiating the optcode
     switch ((int)ram->read(PC))
     {
-    case 0x00:
+    case 0x00: // NOP
         PC++;
         break;
 
-    case 0x01:
+    case 0x01: // LD BC,u16
+        regC = (int)ram->read(PC+1);
+        regB = (int)ram->read(PC+2);
+        PC += 3;
+        break;
+
+    case 0x02: // LD (BC),A
+        regC = regA;
         PC++;
         break;
 
-    case 0x02:
-        PC++;
-        break;
-
-    case 0x03:
+    case 0x03: // INC BC
+        if (regC == 0xff)
+        {
+            regB++;
+        }
+        else
+        {
+            regC++;
+        }      
         PC++;
         break;
 

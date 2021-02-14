@@ -3,11 +3,8 @@ LDFLAGS =
 
 all: main
 
-main: ram.o logging.o
+main: ram.o logging.o cpu.o
 	$(CXX) $(CXXFLAGS) -o $@.out $@.cpp $^ $(LDFLAGS)
-
-ram.o: logging.o ram.cpp
-logging.o: logging.cpp
 
 test:
 	$(CXX) $(CXXFLAGS) -o $@.out $@.cpp $^ $(LDFLAGS)
@@ -15,8 +12,13 @@ test:
 install:
 	cp main.out /usr/local/bin/gb-emu
 
+ram.o: ram.cpp
+logging.o: logging.cpp
+cpu.o: cpu.cpp
+
 clean:
 	$(RM) main.out
 	$(RM) ram.o
 	$(RM) logging.o
+	$(RM) cpu.o
 	$(RM) test.out

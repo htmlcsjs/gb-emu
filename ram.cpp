@@ -5,7 +5,7 @@
 #include <stdexcept>
 #include "ram.hpp"
 
-Ram::Ram(std::string romLocation, bool loggerFileMode, int loggerMin)
+Ram::Ram(std::string romLocation, Logger *loggerPtr)
 {
     // Sections of the 16-but address bus
     sections = "SECTIONS OF GAMEBUY ADDRESS BUS:\n"
@@ -22,7 +22,7 @@ Ram::Ram(std::string romLocation, bool loggerFileMode, int loggerMin)
                "0xFF80-0xFFFE: High Ram\n"
                "0xFFFF-0xFFFF: Interrupts Enable Register (IE)";
     // Init logger
-    logger.init("gb-emu", loggerFileMode, loggerMin);
+    logger = loggerPtr;
     subsystem = "RAM subsystem";
 
     // Initalise the whole bus with 0x00
@@ -31,7 +31,7 @@ Ram::Ram(std::string romLocation, bool loggerFileMode, int loggerMin)
         storage.push_back((std::byte) 0x69);
     }
     std::string msg = "RAM size is: " + std::to_string(storage.size()) + " bytes";
-    logger.log(1, subsystem, msg);
+    logger->log(1, subsystem, msg);
 
     // Open the ROM file so we can read the size from it.
     std::ifstream romForSize(romLocation, std::ios::binary | std::ios::ate);
@@ -41,7 +41,7 @@ Ram::Ram(std::string romLocation, bool loggerFileMode, int loggerMin)
     // If the ROM is too thicc for the address bus, cancel execution
     if (length != 0x7fff)
     {
-        logger.log(4, subsystem, "The ROM file provided is not 32KiB in size");
+        logger->log(4, subsystem, "The ROM file provided is not 32KiB in size");
         throw std::overflow_error("The Rom file provided is not 32kib in size");
     } 
     else
@@ -59,7 +59,7 @@ Ram::Ram(std::string romLocation, bool loggerFileMode, int loggerMin)
             std::byte data{(unsigned char)buffer[i]};
             storage[i] = data;
         }
-        logger.log(1, subsystem, "ROM copied to RAM");
+        logger->log(1, subsystem, "ROM copied to RAM");
         // Clean up memory
         delete buffer;
         rom.close();
@@ -74,6 +74,16 @@ std::string Ram::info()
 std::byte Ram::read(uint16_t address)
 {
     // read a std::byte at `address`
+    if (address <= 0xE000 && address >= 0xfdff)
+    {
+        return storage[address-0x2000];
+    }
+    else if (address <= 0xfea0 && address >= 0xfeff)
+    {
+        return (std::byte)0x00;
+        logger->log(2, subsystem, "Something tried to acsess a invaled place in memory");
+    }
+    
     return storage[address];
 }
 
@@ -83,7 +93,8 @@ void Ram::write(uint16_t address, std::byte data)
     if (address == 0xFF02 && data == (std::byte)0x81)
     {
         std::string charStr(1, (char)read(0xff01));
-        logger.log(1, subsystem, charStr);
+        //logger->log(1, subsystem, charStr);
+        std::cout << charStr;
     }
     storage[address] = data;
 }

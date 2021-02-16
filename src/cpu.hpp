@@ -21,7 +21,13 @@ private:
     uint8_t flags;
     uint16_t PC;
     uint16_t SP;
-    
+
+    // Flag locations
+    uint8_t flagZ;
+    uint8_t flagN;
+    uint8_t flagH;
+    uint8_t flagC;
+
 public:
     Cpu(Ram* ramPtr, Logger * loggerPtr);
     ~Cpu();

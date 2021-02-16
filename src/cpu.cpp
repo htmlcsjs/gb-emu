@@ -10,7 +10,6 @@ Cpu::Cpu(Ram *ramPtr, Logger *loggerPointer)
     subsystem = "CPU subsystem";
 
     // Registor Initisation
-    
     regA = 0x00;
     regB = 0x00;
     regC = 0x00;
@@ -22,7 +21,10 @@ Cpu::Cpu(Ram *ramPtr, Logger *loggerPointer)
     SP = 0x0000;
     PC = 0x0100;
 
-
+    flagZ = 0b10000000;
+    flagN = 0b01000000;
+    flagH = 0b00100000;
+    flagC = 0b00010000;
 }
 
 Cpu::~Cpu()
@@ -120,7 +122,18 @@ void Cpu::loop() // Main loop function;
         PC++;
         break;
 
-    case 0x04:
+    case 0x04: // INC B
+        regB++;
+        flags &= ~flagN;
+        if (regB==0)
+        {
+            flags |= flagZ;
+        }
+        if ((regB & 0xf) == 0x0)
+        {
+            flags |= flagH;
+        }
+        
         PC++;
         break;
 

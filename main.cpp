@@ -38,6 +38,7 @@ int main(int argc, char const *argv[])
     logger.log(1, "Main", "H: " + intToHexString(cpu.getRegister("H")));
     logger.log(1, "Main", "L: " + intToHexString(cpu.getRegister("L")));
     logger.log(1, "Main", "The stack pointer is: " + intToHexString(cpu.getRegister("SP")));
+    logger.log(1, "Main", "The flags are: " + intToBinString(cpu.getRegister("F")));
 
     return 0;
 }

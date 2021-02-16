@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include "logging.hpp"
+#include "utils.hpp"
 
 class Ram
 {

@@ -27,6 +27,7 @@ public:
     ~Cpu();
     void loop(); // function to call in the main loop
     uint16_t getPC();
+    uint16_t getRegister(std::string reg);
 };
 
 

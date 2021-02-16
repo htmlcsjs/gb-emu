@@ -1,3 +1,5 @@
+#include <iomanip>
+#include <sstream>
 #include "cpu.hpp"
 
 Cpu::Cpu(Ram *ramPtr, Logger *loggerPointer)
@@ -6,11 +8,6 @@ Cpu::Cpu(Ram *ramPtr, Logger *loggerPointer)
     ram = ramPtr;
     logger = loggerPointer;
     subsystem = "CPU subsystem";
-
-    // Some tests
-    logger->log(0, subsystem, "test");
-    ram->write(0xff01, (std::byte)0x69);
-    ram->write(0xff02, (std::byte)0x81);
 
     // Registor Initisation
     
@@ -32,6 +29,55 @@ Cpu::~Cpu()
 {
 }
 
+uint16_t Cpu::getRegister(std::string reg)
+{
+    if (reg == "A")
+    {
+        return regA;
+    }
+    else if (reg == "B")
+    {
+        return regB;
+    }
+    else if (reg == "C")
+    {
+        return regC;
+    }
+    else if (reg == "D")
+    {
+        return regD;
+    }
+    else if (reg == "E")
+    {
+        return regE;
+    }
+    else if (reg == "H")
+    {
+        return regH;
+    }
+    else if (reg == "L")
+    {
+        return regL;
+    }
+    else if (reg == "F")
+    {
+        return flags;
+    }
+    else if (reg == "PC")
+    {
+        return PC;
+    }
+    else if (reg == "SP")
+    {
+        return SP;
+    }
+    else
+    {
+        return 0;
+    }
+    
+}
+
 uint16_t Cpu::getPC()
 {
     return PC;
@@ -39,7 +85,12 @@ uint16_t Cpu::getPC()
 
 void Cpu::loop() // Main loop function;
 {
-    // main switch case for interpiating the optcode
+
+    // Temp varibles to avoid undefined behaviors
+    uint8_t upper = 0x00;
+    uint8_t lower = 0x00;
+    
+    // Main switch case for interpreting the optcode
     switch ((int)ram->read(PC))
     {
     case 0x00: // NOP
@@ -833,8 +884,11 @@ void Cpu::loop() // Main loop function;
         PC++;
         break;
 
-    case 0xc3:
-        PC++;
+    case 0xc3: // JP u16
+        upper = (int)ram->read(PC + 2);
+        lower = (int)ram->read(PC + 1);
+        PC = lower + (upper * 0x100);
+        logger->log(0, subsystem, "Jumping to: " + intToHexString(lower + (upper * 0x100)));
         break;
 
     case 0xc4:
@@ -1080,6 +1134,5 @@ void Cpu::loop() // Main loop function;
     default:
         break;
     }
-
-    logger->log(1, subsystem, std::to_string(PC));
+    logger->log(0, subsystem, "PC: " + intToHexString(PC));
 }

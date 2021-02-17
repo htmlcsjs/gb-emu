@@ -100,7 +100,7 @@ void Cpu::loop() // Main loop function;
         break;
 
     case 0x02: // LD (BC),A
-        PC += LD_r16_r8(regC, regB, regA);
+        PC += LD_r16_r8(regC, regB, regA, ram);
         break;
 
     case 0x03: // INC BC

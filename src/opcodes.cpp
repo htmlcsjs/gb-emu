@@ -20,29 +20,27 @@ int LD_r16_u16(u8 &lower_r16, u8 &upper_r16, Ram *ram, u16 PC)
     return 3;
 }
 
-int LD_r16_r8(u8 &lower_r16, u8 &upper_r16, u8 &r8)
+int LD_r16_r8(u8 &lower_r16, u8 &upper_r16, u8 &r8, Ram *ram)
 {
-    r8 = lower_r16;
+    u16 address = lower_r16 + (upper_r16 * 0x100);
+    std::byte data{r8};
+    ram->write(address, data);
     return 1;
 }
 
 int INC_r16(u8 &lower_r16, u8 &upper_r16)
 {
-    if (lower_r16 == 0xff)
-    {
-        upper_r16++;
-        lower_r16++;
-    }
-    else
-    {
-        lower_r16++;
-    }
+    u16 r16 = (upper_r16 << 8) | lower_r16;
+    r16++;
+    lower_r16 = r16 & 0xff;
+    upper_r16 = r16 >> 8;
     return 1;
 }
 
 int INC_r8(u8 &r8, u8 &flags)
 {
     r8++;
+    flags &= 0x00;
     flags &= ~flagN;
     if (r8 == 0)
     {
@@ -58,6 +56,7 @@ int INC_r8(u8 &r8, u8 &flags)
 int DEC_r8(u8 &r8, u8 &flags)
 {
     r8--;
+    flags &= 0x00;
     flags |= flagN;
     if (r8 == 0x0)
     {

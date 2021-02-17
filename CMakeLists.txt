@@ -8,4 +8,5 @@ add_executable(gb-emu.out main.cpp
     ./src/logging.cpp
     ./src/ram.cpp
     ./src/utils.cpp
+    ./src/opcodes.cpp
 )

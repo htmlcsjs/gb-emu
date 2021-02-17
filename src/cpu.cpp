@@ -21,10 +21,6 @@ Cpu::Cpu(Ram *ramPtr, Logger *loggerPointer)
     SP = 0x0000;
     PC = 0x0100;
 
-    flagZ = 0b10000000;
-    flagN = 0b01000000;
-    flagH = 0b00100000;
-    flagC = 0b00010000;
 }
 
 Cpu::~Cpu()
@@ -89,56 +85,34 @@ void Cpu::loop() // Main loop function;
 {
 
     // Temp varibles to avoid undefined behaviors
-    uint8_t upper = 0x00;
-    uint8_t lower = 0x00;
-    
-    // Main switch case for interpreting the optcode
+    u8 upper = 0x00;
+    u8 lower = 0x00;
+
+    // Main switch case for interpreting the opcode
     switch ((int)ram->read(PC))
     {
     case 0x00: // NOP
-        PC++;
+        PC += NOP();
         break;
 
     case 0x01: // LD BC,u16
-        regC = (int)ram->read(PC+1);
-        regB = (int)ram->read(PC+2);
-        PC += 3;
+        PC += LD_r16_u16(regC, regB, ram, PC);
         break;
 
     case 0x02: // LD (BC),A
-        regC = regA;
-        PC++;
+        PC += LD_r16_r8(regC, regB, regA);
         break;
 
     case 0x03: // INC BC
-        if (regC == 0xff)
-        {
-            regB++;
-        }
-        else
-        {
-            regC++;
-        }      
-        PC++;
+        PC += INC_r16(regC, regB);
         break;
 
     case 0x04: // INC B
-        regB++;
-        flags &= ~flagN;
-        if (regB==0)
-        {
-            flags |= flagZ;
-        }
-        if ((regB & 0xf) == 0x0)
-        {
-            flags |= flagH;
-        }
-        
-        PC++;
+        PC += INC_r8(regB, flags);
         break;
 
-    case 0x05:
-        PC++;
+    case 0x05: // DEC B
+        PC += DEC_r8(regB, flags);
         break;
 
     case 0x06:
@@ -898,10 +872,8 @@ void Cpu::loop() // Main loop function;
         break;
 
     case 0xc3: // JP u16
-        upper = (int)ram->read(PC + 2);
-        lower = (int)ram->read(PC + 1);
-        PC = lower + (upper * 0x100);
-        logger->log(0, subsystem, "Jumping to: " + intToHexString(lower + (upper * 0x100)));
+        PC = JP_u16(ram, PC);
+        logger->log(0, subsystem, "Jumping to: " + intToHexString(PC));
         break;
 
     case 0xc4:

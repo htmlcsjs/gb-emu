@@ -54,7 +54,7 @@ Ram::Ram(std::string romLocation, Logger *loggerPtr)
         rom.read(buffer, 0x7fff);
 
         // loop every byte in buffer and append to storage vector 
-        for (uint16_t i = 0; i < 0x7fff; i++)
+        for (u16 i = 0; i < 0x7fff; i++)
         {
             std::byte data{(unsigned char)buffer[i]};
             storage[i] = data;
@@ -71,7 +71,7 @@ std::string Ram::info()
     return sections;
 }
 
-std::byte Ram::read(uint16_t address)
+std::byte Ram::read(u16 address)
 {
     // read a std::byte at `address`
     if (address <= 0xE000 && address >= 0xfdff)
@@ -87,7 +87,7 @@ std::byte Ram::read(uint16_t address)
     return storage[address];
 }
 
-void Ram::write(uint16_t address, std::byte data)
+void Ram::write(u16 address, std::byte data)
 {
     // print to the console corrospnding to the GPU
     if (address == 0xFF02 && data == (std::byte)0x81)

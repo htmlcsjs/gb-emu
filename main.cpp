@@ -15,7 +15,7 @@ int main(int argc, char const *argv[])
 
     // Read the name of the game from the cartrige
     std::stringstream ssName;
-    for (uint16_t i = 0x0134; i < 0x013E; i++)
+    for (u16 i = 0x0134; i < 0x013E; i++)
     {
         ssName << (char)ram.read(i);
     }

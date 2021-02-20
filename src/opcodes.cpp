@@ -40,8 +40,8 @@ int INC_r16(u8 &lower_r16, u8 &upper_r16)
 int INC_r8(u8 &r8, u8 &flags)
 {
     r8++;
-    flags &= 0x00;
-    flags &= ~flagN;
+    flags &= ~(flagH + flagN + flagZ);
+    
     if (r8 == 0)
     {
         flags |= flagZ;
@@ -56,7 +56,7 @@ int INC_r8(u8 &r8, u8 &flags)
 int DEC_r8(u8 &r8, u8 &flags)
 {
     r8--;
-    flags &= 0x00;
+    flags &= ~(flagH + flagN + flagZ);
     flags |= flagN;
     if (r8 == 0x0)
     {

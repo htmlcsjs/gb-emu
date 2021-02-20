@@ -7,8 +7,7 @@ u8 flagC = 0b00010000;
 typedef uint8_t u8;
 typedef uint16_t u16;
 
-    int
-    NOP()
+int NOP()
 {
     return 1;
 }
@@ -20,7 +19,7 @@ int LD_r16_u16(u8 &lower_r16, u8 &upper_r16, Ram *ram, u16 PC)
     return 3;
 }
 
-int LD_r16_r8(u8 &lower_r16, u8 &upper_r16, u8 &r8, Ram *ram)
+int LD_mem_r16_r8(u8 &lower_r16, u8 &upper_r16, u8 &r8, Ram *ram)
 {
     u16 address = lower_r16 + (upper_r16 * 0x100);
     std::byte data{r8};
@@ -41,7 +40,7 @@ int INC_r8(u8 &r8, u8 &flags)
 {
     r8++;
     flags &= ~(flagH + flagN + flagZ);
-    
+
     if (r8 == 0)
     {
         flags |= flagZ;
@@ -66,6 +65,28 @@ int DEC_r8(u8 &r8, u8 &flags)
     {
         flags |= flagH;
     }
+    return 1;
+}
+
+int LD_r8_u8(u8 &r8, Ram *ram, u16 PC)
+{
+    u8 data = (int)ram->read(PC+1);
+    r8 = data;
+    return 2;
+}
+
+int RLCA(u8 &r8, u8& flags)
+{
+    if ((r8 & 0x80) == 0x80)
+    {
+        flags = flagC;
+    }
+    else
+    {
+        flags = 0;
+    }
+    std::cout << intToBinString(r8<<1);
+    r8 = r8 << 1;
     return 1;
 }
 

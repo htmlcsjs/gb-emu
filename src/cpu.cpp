@@ -17,7 +17,7 @@ Cpu::Cpu(Ram *ramPtr, Logger *loggerPointer)
     regE = 0x00;
     regH = 0x00;
     regL = 0x00;
-    flags = 0b0000000;
+    flags = 0x0;
     SP = 0x0000;
     PC = 0x0100;
 
@@ -84,10 +84,6 @@ uint16_t Cpu::getPC()
 void Cpu::loop() // Main loop function;
 {
 
-    // Temp varibles to avoid undefined behaviors
-    u8 upper = 0x00;
-    u8 lower = 0x00;
-
     // Main switch case for interpreting the opcode
     switch ((int)ram->read(PC))
     {
@@ -100,7 +96,7 @@ void Cpu::loop() // Main loop function;
         break;
 
     case 0x02: // LD (BC),A
-        PC += LD_r16_r8(regC, regB, regA, ram);
+        PC += LD_mem_r16_r8(regC, regB, regA, ram);
         break;
 
     case 0x03: // INC BC
@@ -115,12 +111,12 @@ void Cpu::loop() // Main loop function;
         PC += DEC_r8(regB, flags);
         break;
 
-    case 0x06:
-        PC++;
+    case 0x06: // LD B,u8
+        PC += LD_r8_u8(regB, ram, PC);
         break;
 
-    case 0x07:
-        PC++;
+    case 0x07: // RLCA
+        PC += RLCA(regA, flags);
         break;
 
     case 0x08:

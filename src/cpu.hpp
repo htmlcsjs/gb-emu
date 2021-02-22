@@ -3,7 +3,7 @@
 #include "opcodes.hpp"
 #include "ram.hpp"
 #include "logging.hpp"
-#include "utils.cpp"
+#include "utils.hpp"
 
 class Cpu
 {

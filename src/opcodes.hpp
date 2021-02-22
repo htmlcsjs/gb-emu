@@ -1,7 +1,8 @@
-#include "ram.hpp"
+#pragma once
 
-typedef uint16_t u16;
-typedef uint8_t u8;
+#include "ram.hpp"
+#include "logging.hpp" 
+
 
 int NOP();
 int LD_r16_u16(u8 &lower_r16, u8 &upper_r16, Ram *Ram, u16 PC);

@@ -1,5 +1,5 @@
 # gb-emu
-A WIP gameboy emu
+A WIP gameboy emu. Compile using `cmake` and `make`.
 
 # Goals
 

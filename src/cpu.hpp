@@ -1,7 +1,9 @@
-#include "opcodes.hpp"
+#pragma once
 
-typedef uint16_t u16;
-typedef uint8_t u8;
+#include "opcodes.hpp"
+#include "ram.hpp"
+#include "logging.hpp"
+#include "utils.cpp"
 
 class Cpu
 {

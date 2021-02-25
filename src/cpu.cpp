@@ -119,752 +119,752 @@ void Cpu::loop() // Main loop function;
         PC += RLCA(regA, flags);
         break;
 
-    case 0x08:
-        PC++;
+    case 0x08: // LD u16, SP
+        PC += LD_u16_SP(SP, ram, PC);
         break;
 
-    case 0x09:
-        PC++;
+    case 0x09: // ADD HL,BC
+        PC += ADD_HL_r16(regC, regB, regH, regL, flags);
         break;
 
-    case 0x0a:
-        PC++;
+    case 0x0a: // LD A,(BC)
+        PC += LD_r8_mem_r16(regC, regB, regA, ram);
         break;
 
-    case 0x0b:
-        PC++;
+    case 0x0b: // DEC BC
+        PC += DEC_r16(regC, regB);
         break;
 
-    case 0x0c:
-        PC++;
+    case 0x0c: // INC C
+        PC += INC_r8(regC, flags);
         break;
 
-    case 0x0d:
-        PC++;
+    case 0x0d: // DEC C
+        PC += DEC_r8(regC, flags);
         break;
 
-    case 0x0e:
-        PC++;
+    case 0x0e: // LD C,u8
+        PC += LD_r8_u8(regC, ram, PC);
         break;
 
-    case 0x0f:
-        PC++;
+    case 0x0f: // RRCA
+        PC += RRCA(regA, flags);
         break;
 
     case 0x10:
-        PC++;
+        PC += 1;
         break;
 
     case 0x11:
-        PC++;
+        PC += 1;
         break;
 
     case 0x12:
-        PC++;
+        PC += 1;
         break;
 
     case 0x13:
-        PC++;
+        PC += 1;
         break;
 
     case 0x14:
-        PC++;
+        PC += 1;
         break;
 
     case 0x15:
-        PC++;
+        PC += 1;
         break;
 
     case 0x16:
-        PC++;
+        PC += 1;
         break;
 
     case 0x17:
-        PC++;
+        PC += 1;
         break;
 
     case 0x18:
-        PC++;
+        PC += 1;
         break;
 
     case 0x19:
-        PC++;
+        PC += 1;
         break;
 
     case 0x1a:
-        PC++;
+        PC += 1;
         break;
 
     case 0x1b:
-        PC++;
+        PC += 1;
         break;
 
     case 0x1c:
-        PC++;
+        PC += 1;
         break;
 
     case 0x1d:
-        PC++;
+        PC += 1;
         break;
 
     case 0x1e:
-        PC++;
+        PC += 1;
         break;
 
     case 0x1f:
-        PC++;
+        PC += 1;
         break;
 
     case 0x20:
-        PC++;
+        PC += 1;
         break;
 
     case 0x21:
-        PC++;
+        PC += 1;
         break;
 
     case 0x22:
-        PC++;
+        PC += 1;
         break;
 
     case 0x23:
-        PC++;
+        PC += 1;
         break;
 
     case 0x24:
-        PC++;
+        PC += 1;
         break;
 
     case 0x25:
-        PC++;
+        PC += 1;
         break;
 
     case 0x26:
-        PC++;
+        PC += 1;
         break;
 
     case 0x27:
-        PC++;
+        PC += 1;
         break;
 
     case 0x28:
-        PC++;
+        PC += 1;
         break;
 
     case 0x29:
-        PC++;
+        PC += 1;
         break;
 
     case 0x2a:
-        PC++;
+        PC += 1;
         break;
 
     case 0x2b:
-        PC++;
+        PC += 1;
         break;
 
     case 0x2c:
-        PC++;
+        PC += 1;
         break;
 
     case 0x2d:
-        PC++;
+        PC += 1;
         break;
 
     case 0x2e:
-        PC++;
+        PC += 1;
         break;
 
     case 0x2f:
-        PC++;
+        PC += 1;
         break;
 
     case 0x30:
-        PC++;
+        PC += 1;
         break;
 
     case 0x31:
-        PC++;
+        PC += 1;
         break;
 
     case 0x32:
-        PC++;
+        PC += 1;
         break;
 
     case 0x33:
-        PC++;
+        PC += 1;
         break;
 
     case 0x34:
-        PC++;
+        PC += 1;
         break;
 
     case 0x35:
-        PC++;
+        PC += 1;
         break;
 
     case 0x36:
-        PC++;
+        PC += 1;
         break;
 
     case 0x37:
-        PC++;
+        PC += 1;
         break;
 
     case 0x38:
-        PC++;
+        PC += 1;
         break;
 
     case 0x39:
-        PC++;
+        PC += 1;
         break;
 
     case 0x3a:
-        PC++;
+        PC += 1;
         break;
 
     case 0x3b:
-        PC++;
+        PC += 1;
         break;
 
     case 0x3c:
-        PC++;
+        PC += 1;
         break;
 
     case 0x3d:
-        PC++;
+        PC += 1;
         break;
 
     case 0x3e:
-        PC++;
+        PC += 1;
         break;
 
     case 0x3f:
-        PC++;
+        PC += 1;
         break;
 
     case 0x40:
-        PC++;
+        PC += 1;
         break;
 
     case 0x41:
-        PC++;
+        PC += 1;
         break;
 
     case 0x42:
-        PC++;
+        PC += 1;
         break;
 
     case 0x43:
-        PC++;
+        PC += 1;
         break;
 
     case 0x44:
-        PC++;
+        PC += 1;
         break;
 
     case 0x45:
-        PC++;
+        PC += 1;
         break;
 
     case 0x46:
-        PC++;
+        PC += 1;
         break;
 
     case 0x47:
-        PC++;
+        PC += 1;
         break;
 
     case 0x48:
-        PC++;
+        PC += 1;
         break;
 
     case 0x49:
-        PC++;
+        PC += 1;
         break;
 
     case 0x4a:
-        PC++;
+        PC += 1;
         break;
 
     case 0x4b:
-        PC++;
+        PC += 1;
         break;
 
     case 0x4c:
-        PC++;
+        PC += 1;
         break;
 
     case 0x4d:
-        PC++;
+        PC += 1;
         break;
 
     case 0x4e:
-        PC++;
+        PC += 1;
         break;
 
     case 0x4f:
-        PC++;
+        PC += 1;
         break;
 
     case 0x50:
-        PC++;
+        PC += 1;
         break;
 
     case 0x51:
-        PC++;
+        PC += 1;
         break;
 
     case 0x52:
-        PC++;
+        PC += 1;
         break;
 
     case 0x53:
-        PC++;
+        PC += 1;
         break;
 
     case 0x54:
-        PC++;
+        PC += 1;
         break;
 
     case 0x55:
-        PC++;
+        PC += 1;
         break;
 
     case 0x56:
-        PC++;
+        PC += 1;
         break;
 
     case 0x57:
-        PC++;
+        PC += 1;
         break;
 
     case 0x58:
-        PC++;
+        PC += 1;
         break;
 
     case 0x59:
-        PC++;
+        PC += 1;
         break;
 
     case 0x5a:
-        PC++;
+        PC += 1;
         break;
 
     case 0x5b:
-        PC++;
+        PC += 1;
         break;
 
     case 0x5c:
-        PC++;
+        PC += 1;
         break;
 
     case 0x5d:
-        PC++;
+        PC += 1;
         break;
 
     case 0x5e:
-        PC++;
+        PC += 1;
         break;
 
     case 0x5f:
-        PC++;
+        PC += 1;
         break;
 
     case 0x60:
-        PC++;
+        PC += 1;
         break;
 
     case 0x61:
-        PC++;
+        PC += 1;
         break;
 
     case 0x62:
-        PC++;
+        PC += 1;
         break;
 
     case 0x63:
-        PC++;
+        PC += 1;
         break;
 
     case 0x64:
-        PC++;
+        PC += 1;
         break;
 
     case 0x65:
-        PC++;
+        PC += 1;
         break;
 
     case 0x66:
-        PC++;
+        PC += 1;
         break;
 
     case 0x67:
-        PC++;
+        PC += 1;
         break;
 
     case 0x68:
-        PC++;
+        PC += 1;
         break;
 
     case 0x69:
-        PC++;
+        PC += 1;
         break;
 
     case 0x6a:
-        PC++;
+        PC += 1;
         break;
 
     case 0x6b:
-        PC++;
+        PC += 1;
         break;
 
     case 0x6c:
-        PC++;
+        PC += 1;
         break;
 
     case 0x6d:
-        PC++;
+        PC += 1;
         break;
 
     case 0x6e:
-        PC++;
+        PC += 1;
         break;
 
     case 0x6f:
-        PC++;
+        PC += 1;
         break;
 
     case 0x70:
-        PC++;
+        PC += 1;
         break;
 
     case 0x71:
-        PC++;
+        PC += 1;
         break;
 
     case 0x72:
-        PC++;
+        PC += 1;
         break;
 
     case 0x73:
-        PC++;
+        PC += 1;
         break;
 
     case 0x74:
-        PC++;
+        PC += 1;
         break;
 
     case 0x75:
-        PC++;
+        PC += 1;
         break;
 
     case 0x76:
-        PC++;
+        PC += 1;
         break;
 
     case 0x77:
-        PC++;
+        PC += 1;
         break;
 
     case 0x78:
-        PC++;
+        PC += 1;
         break;
 
     case 0x79:
-        PC++;
+        PC += 1;
         break;
 
     case 0x7a:
-        PC++;
+        PC += 1;
         break;
 
     case 0x7b:
-        PC++;
+        PC += 1;
         break;
 
     case 0x7c:
-        PC++;
+        PC += 1;
         break;
 
     case 0x7d:
-        PC++;
+        PC += 1;
         break;
 
     case 0x7e:
-        PC++;
+        PC += 1;
         break;
 
     case 0x7f:
-        PC++;
+        PC += 1;
         break;
 
     case 0x80:
-        PC++;
+        PC += 1;
         break;
 
     case 0x81:
-        PC++;
+        PC += 1;
         break;
 
     case 0x82:
-        PC++;
+        PC += 1;
         break;
 
     case 0x83:
-        PC++;
+        PC += 1;
         break;
 
     case 0x84:
-        PC++;
+        PC += 1;
         break;
 
     case 0x85:
-        PC++;
+        PC += 1;
         break;
 
     case 0x86:
-        PC++;
+        PC += 1;
         break;
 
     case 0x87:
-        PC++;
+        PC += 1;
         break;
 
     case 0x88:
-        PC++;
+        PC += 1;
         break;
 
     case 0x89:
-        PC++;
+        PC += 1;
         break;
 
     case 0x8a:
-        PC++;
+        PC += 1;
         break;
 
     case 0x8b:
-        PC++;
+        PC += 1;
         break;
 
     case 0x8c:
-        PC++;
+        PC += 1;
         break;
 
     case 0x8d:
-        PC++;
+        PC += 1;
         break;
 
     case 0x8e:
-        PC++;
+        PC += 1;
         break;
 
     case 0x8f:
-        PC++;
+        PC += 1;
         break;
 
     case 0x90:
-        PC++;
+        PC += 1;
         break;
 
     case 0x91:
-        PC++;
+        PC += 1;
         break;
 
     case 0x92:
-        PC++;
+        PC += 1;
         break;
 
     case 0x93:
-        PC++;
+        PC += 1;
         break;
 
     case 0x94:
-        PC++;
+        PC += 1;
         break;
 
     case 0x95:
-        PC++;
+        PC += 1;
         break;
 
     case 0x96:
-        PC++;
+        PC += 1;
         break;
 
     case 0x97:
-        PC++;
+        PC += 1;
         break;
 
     case 0x98:
-        PC++;
+        PC += 1;
         break;
 
     case 0x99:
-        PC++;
+        PC += 1;
         break;
 
     case 0x9a:
-        PC++;
+        PC += 1;
         break;
 
     case 0x9b:
-        PC++;
+        PC += 1;
         break;
 
     case 0x9c:
-        PC++;
+        PC += 1;
         break;
 
     case 0x9d:
-        PC++;
+        PC += 1;
         break;
 
     case 0x9e:
-        PC++;
+        PC += 1;
         break;
 
     case 0x9f:
-        PC++;
+        PC += 1;
         break;
 
     case 0xa0:
-        PC++;
+        PC += 1;
         break;
 
     case 0xa1:
-        PC++;
+        PC += 1;
         break;
 
     case 0xa2:
-        PC++;
+        PC += 1;
         break;
 
     case 0xa3:
-        PC++;
+        PC += 1;
         break;
 
     case 0xa4:
-        PC++;
+        PC += 1;
         break;
 
     case 0xa5:
-        PC++;
+        PC += 1;
         break;
 
     case 0xa6:
-        PC++;
+        PC += 1;
         break;
 
     case 0xa7:
-        PC++;
+        PC += 1;
         break;
 
     case 0xa8:
-        PC++;
+        PC += 1;
         break;
 
     case 0xa9:
-        PC++;
+        PC += 1;
         break;
 
     case 0xaa:
-        PC++;
+        PC += 1;
         break;
 
     case 0xab:
-        PC++;
+        PC += 1;
         break;
 
     case 0xac:
-        PC++;
+        PC += 1;
         break;
 
     case 0xad:
-        PC++;
+        PC += 1;
         break;
 
     case 0xae:
-        PC++;
+        PC += 1;
         break;
 
     case 0xaf:
-        PC++;
+        PC += 1;
         break;
 
     case 0xb0:
-        PC++;
+        PC += 1;
         break;
 
     case 0xb1:
-        PC++;
+        PC += 1;
         break;
 
     case 0xb2:
-        PC++;
+        PC += 1;
         break;
 
     case 0xb3:
-        PC++;
+        PC += 1;
         break;
 
     case 0xb4:
-        PC++;
+        PC += 1;
         break;
 
     case 0xb5:
-        PC++;
+        PC += 1;
         break;
 
     case 0xb6:
-        PC++;
+        PC += 1;
         break;
 
     case 0xb7:
-        PC++;
+        PC += 1;
         break;
 
     case 0xb8:
-        PC++;
+        PC += 1;
         break;
 
     case 0xb9:
-        PC++;
+        PC += 1;
         break;
 
     case 0xba:
-        PC++;
+        PC += 1;
         break;
 
     case 0xbb:
-        PC++;
+        PC += 1;
         break;
 
     case 0xbc:
-        PC++;
+        PC += 1;
         break;
 
     case 0xbd:
-        PC++;
+        PC += 1;
         break;
 
     case 0xbe:
-        PC++;
+        PC += 1;
         break;
 
     case 0xbf:
-        PC++;
+        PC += 1;
         break;
 
     case 0xc0:
-        PC++;
+        PC += 1;
         break;
 
     case 0xc1:
-        PC++;
+        PC += 1;
         break;
 
     case 0xc2:
-        PC++;
+        PC += 1;
         break;
 
     case 0xc3: // JP u16
@@ -873,243 +873,243 @@ void Cpu::loop() // Main loop function;
         break;
 
     case 0xc4:
-        PC++;
+        PC += 1;
         break;
 
     case 0xc5:
-        PC++;
+        PC += 1;
         break;
 
     case 0xc6:
-        PC++;
+        PC += 1;
         break;
 
     case 0xc7:
-        PC++;
+        PC += 1;
         break;
 
     case 0xc8:
-        PC++;
+        PC += 1;
         break;
 
     case 0xc9:
-        PC++;
+        PC += 1;
         break;
 
     case 0xca:
-        PC++;
+        PC += 1;
         break;
 
     case 0xcb:
-        PC++;
+        PC += 1;
         break;
 
     case 0xcc:
-        PC++;
+        PC += 1;
         break;
 
     case 0xcd:
-        PC++;
+        PC += 1;
         break;
 
     case 0xce:
-        PC++;
+        PC += 1;
         break;
 
     case 0xcf:
-        PC++;
+        PC += 1;
         break;
 
     case 0xd0:
-        PC++;
+        PC += 1;
         break;
 
     case 0xd1:
-        PC++;
+        PC += 1;
         break;
 
     case 0xd2:
-        PC++;
+        PC += 1;
         break;
 
     case 0xd3:
-        PC++;
+        PC += 1;
         break;
 
     case 0xd4:
-        PC++;
+        PC += 1;
         break;
 
     case 0xd5:
-        PC++;
+        PC += 1;
         break;
 
     case 0xd6:
-        PC++;
+        PC += 1;
         break;
 
     case 0xd7:
-        PC++;
+        PC += 1;
         break;
 
     case 0xd8:
-        PC++;
+        PC += 1;
         break;
 
     case 0xd9:
-        PC++;
+        PC += 1;
         break;
 
     case 0xda:
-        PC++;
+        PC += 1;
         break;
 
     case 0xdb:
-        PC++;
+        PC += 1;
         break;
 
     case 0xdc:
-        PC++;
+        PC += 1;
         break;
 
     case 0xdd:
-        PC++;
+        PC += 1;
         break;
 
     case 0xde:
-        PC++;
+        PC += 1;
         break;
 
     case 0xdf:
-        PC++;
+        PC += 1;
         break;
 
     case 0xe0:
-        PC++;
+        PC += 1;
         break;
 
     case 0xe1:
-        PC++;
+        PC += 1;
         break;
 
     case 0xe2:
-        PC++;
+        PC += 1;
         break;
 
     case 0xe3:
-        PC++;
+        PC += 1;
         break;
 
     case 0xe4:
-        PC++;
+        PC += 1;
         break;
 
     case 0xe5:
-        PC++;
+        PC += 1;
         break;
 
     case 0xe6:
-        PC++;
+        PC += 1;
         break;
 
     case 0xe7:
-        PC++;
+        PC += 1;
         break;
 
     case 0xe8:
-        PC++;
+        PC += 1;
         break;
 
     case 0xe9:
-        PC++;
+        PC += 1;
         break;
 
     case 0xea:
-        PC++;
+        PC += 1;
         break;
 
     case 0xeb:
-        PC++;
+        PC += 1;
         break;
 
     case 0xec:
-        PC++;
+        PC += 1;
         break;
 
     case 0xed:
-        PC++;
+        PC += 1;
         break;
 
     case 0xee:
-        PC++;
+        PC += 1;
         break;
 
     case 0xef:
-        PC++;
+        PC += 1;
         break;
 
     case 0xf0:
-        PC++;
+        PC += 1;
         break;
 
     case 0xf1:
-        PC++;
+        PC += 1;
         break;
 
     case 0xf2:
-        PC++;
+        PC += 1;
         break;
 
     case 0xf3:
-        PC++;
+        PC += 1;
         break;
 
     case 0xf4:
-        PC++;
+        PC += 1;
         break;
 
     case 0xf5:
-        PC++;
+        PC += 1;
         break;
 
     case 0xf6:
-        PC++;
+        PC += 1;
         break;
 
     case 0xf7:
-        PC++;
+        PC += 1;
         break;
 
     case 0xf8:
-        PC++;
+        PC += 1;
         break;
 
     case 0xf9:
-        PC++;
+        PC += 1;
         break;
 
     case 0xfa:
-        PC++;
+        PC += 1;
         break;
 
     case 0xfb:
-        PC++;
+        PC += 1;
         break;
 
     case 0xfc:
-        PC++;
+        PC += 1;
         break;
 
     case 0xfd:
-        PC++;
+        PC += 1;
         break;
 
     case 0xfe:
-        PC++;
+        PC += 1;
         break;
 
     case 0xff:
-        PC++;
+        PC += 1;
         break;
 
     default:

@@ -10,9 +10,9 @@ std::string name;
 int main(int argc, char const *argv[])
 {
     // Init the subsystems
-    Logger logger = Logger("gb-emu", false, 1);
-    Ram ram = Ram(argv[1], &logger);
-    Cpu cpu = Cpu(&ram, &logger);
+    emulator::Logger logger = emulator::Logger("gb-emu", false, 1);
+    emulator::Ram ram = emulator::Ram(argv[1], &logger);
+    emulator::Cpu cpu = emulator::Cpu(&ram, &logger);
 
     // Read the name of the game from the cartrige
     std::stringstream ssName;

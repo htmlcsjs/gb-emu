@@ -5,7 +5,7 @@
 #include <stdexcept>
 #include "ram.hpp"
 
-Ram::Ram(std::string romLocation, Logger *loggerPtr)
+emulator::Ram::Ram(std::string romLocation, Logger *loggerPtr)
 {
     // Sections of the 16-but address bus
     sections = "SECTIONS OF GAMEBUY ADDRESS BUS:\n"
@@ -66,12 +66,12 @@ Ram::Ram(std::string romLocation, Logger *loggerPtr)
     }   
 }
 
-std::string Ram::info()
+std::string emulator::Ram::info()
 {
     return sections;
 }
 
-std::byte Ram::read(u16 address)
+std::byte emulator::Ram::read(u16 address)
 {
     // read a std::byte at `address`
     if (address <= 0xE000 && address >= 0xfdff)
@@ -87,7 +87,7 @@ std::byte Ram::read(u16 address)
     return storage[address];
 }
 
-void Ram::write(u16 address, std::byte data)
+void emulator::Ram::write(u16 address, std::byte data)
 {
     // print to the console corrospnding to the GPU
     if (address == 0xFF02 && data == (std::byte)0x81)
@@ -100,7 +100,7 @@ void Ram::write(u16 address, std::byte data)
 }
 
 
-Ram::~Ram()
+emulator::Ram::~Ram()
 {
     // Deconstuct here
 }

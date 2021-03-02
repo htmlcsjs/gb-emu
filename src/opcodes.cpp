@@ -7,19 +7,19 @@ u8 flagC = 0b00010000;
 typedef uint8_t u8;
 typedef uint16_t u16;
 
-int NOP()
+int emulator::opcodes::NOP()
 {
     return 1;
 }
 
-int LD_r16_u16(u8 &lower_r16, u8 &upper_r16, Ram *ram, u16 PC)
+int emulator::opcodes::LD_r16_u16(u8 &lower_r16, u8 &upper_r16, Ram *ram, u16 PC)
 {
     lower_r16 = (int)ram->read(PC + 1);
     upper_r16 = (int)ram->read(PC + 2);
     return 3;
 }
 
-int LD_mem_r16_r8(u8 &lower_r16, u8 &upper_r16, u8 &r8, Ram *ram)
+int emulator::opcodes::LD_mem_r16_r8(u8 &lower_r16, u8 &upper_r16, u8 &r8, Ram *ram)
 {
     u16 address = lower_r16 + (upper_r16 * 0x100);
     std::byte data{r8};
@@ -27,7 +27,7 @@ int LD_mem_r16_r8(u8 &lower_r16, u8 &upper_r16, u8 &r8, Ram *ram)
     return 1;
 }
 
-int INC_r16(u8 &lower_r16, u8 &upper_r16)
+int emulator::opcodes::INC_r16(u8 &lower_r16, u8 &upper_r16)
 {
     u16 r16 = (upper_r16 << 8) | lower_r16;
     r16++;
@@ -36,7 +36,7 @@ int INC_r16(u8 &lower_r16, u8 &upper_r16)
     return 1;
 }
 
-int INC_r8(u8 &r8, u8 &flags)
+int emulator::opcodes::INC_r8(u8 &r8, u8 &flags)
 {
     r8++;
     flags &= ~(flagH + flagN + flagZ);
@@ -52,7 +52,7 @@ int INC_r8(u8 &r8, u8 &flags)
     return 1;
 }
 
-int DEC_r8(u8 &r8, u8 &flags)
+int emulator::opcodes::DEC_r8(u8 &r8, u8 &flags)
 {
     r8--;
     flags &= ~(flagH + flagN + flagZ);
@@ -68,14 +68,14 @@ int DEC_r8(u8 &r8, u8 &flags)
     return 1;
 }
 
-int LD_r8_u8(u8 &r8, Ram *ram, u16 PC)
+int emulator::opcodes::LD_r8_u8(u8 &r8, Ram *ram, u16 PC)
 {
     u8 data = (int)ram->read(PC+1);
     r8 = data;
     return 2;
 }
 
-int RLCA(u8 &r8, u8& flags)
+int emulator::opcodes::RLCA(u8 &r8, u8& flags)
 {
     if ((r8 & 0x80) == 0x80)
     {
@@ -89,7 +89,7 @@ int RLCA(u8 &r8, u8& flags)
     return 1;
 }
 
-int LD_u16_SP(u16 &SP, Ram *ram, u16 PC)
+int emulator::opcodes::LD_u16_SP(u16 &SP, Ram *ram, u16 PC)
 {
     u16 address = (int)ram->read(PC + 1) + ((int)ram->read(PC + 2) * 0x100);
     std::byte dataLow{SP & 0xff};
@@ -99,7 +99,7 @@ int LD_u16_SP(u16 &SP, Ram *ram, u16 PC)
     return 3;
 }
 
-int ADD_HL_r16(u8 &lower_r16, u8 &upper_r16, u8 &regH, u8 &regL, u8 &flags)
+int emulator::opcodes::ADD_HL_r16(u8 &lower_r16, u8 &upper_r16, u8 &regH, u8 &regL, u8 &flags)
 {
     u16 r16 = (upper_r16 << 8) | lower_r16;
     u16 HL = (regH << 8) | regL;
@@ -125,14 +125,14 @@ int ADD_HL_r16(u8 &lower_r16, u8 &upper_r16, u8 &regH, u8 &regL, u8 &flags)
     return 1;
 }
 
-int LD_r8_mem_r16(u8 &lower_r16, u8 &upper_r16, u8 &r8, Ram *ram)
+int emulator::opcodes::LD_r8_mem_r16(u8 &lower_r16, u8 &upper_r16, u8 &r8, Ram *ram)
 {
     u16 address = lower_r16 + (upper_r16 * 0x100);
     r8 = (u8)ram->read(address);
     return 1;
 }
 
-int DEC_r16(u8 &lower_r16, u8 &upper_r16)
+int emulator::opcodes::DEC_r16(u8 &lower_r16, u8 &upper_r16)
 {
     u16 r16 = (upper_r16 << 8) | lower_r16;
     r16--;
@@ -141,7 +141,7 @@ int DEC_r16(u8 &lower_r16, u8 &upper_r16)
     return 1;
 }
 
-int RRCA(u8 &r8, u8 &flags)
+int emulator::opcodes::RRCA(u8 &r8, u8 &flags)
 {
     if ((r8 & 0x1) == 0x1)
     {
@@ -155,7 +155,7 @@ int RRCA(u8 &r8, u8 &flags)
     return 1;
 }
 
-u16 JP_u16(Ram *ram, u16 PC)
+u16 emulator::opcodes::JP_u16(Ram *ram, u16 PC)
 {
     u8 upper = (int)ram->read(PC + 2);
     u8 lower = (int)ram->read(PC + 1);

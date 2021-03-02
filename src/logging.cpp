@@ -3,7 +3,7 @@
 #include <ctime>
 #include "logging.hpp"
 
-Logger::Logger(std::string name, bool logToFile, int levelMin)
+emulator::Logger::Logger(std::string name, bool logToFile, int levelMin)
 {
     initlised = true;
     fileMode = logToFile;
@@ -23,11 +23,11 @@ Logger::Logger(std::string name, bool logToFile, int levelMin)
     log(1, programName + " Logger", "Logging started");
 }
 
-Logger::~Logger()
+emulator::Logger::~Logger()
 {
 }
 
-void Logger::log(int level, std::string section, std::string msg)
+void emulator::Logger::log(int level, std::string section, std::string msg)
 {
     if (level < minLevel && initlised)
     {

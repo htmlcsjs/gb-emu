@@ -9,17 +9,20 @@ typedef uint32_t u32;
 typedef uint16_t u16;
 typedef uint8_t u8;
 
-    class Ram
+namespace emulator
 {
-private:
-    std::vector<std::byte> storage;
-    std::string sections;
-    Logger *logger;
-    std::string subsystem;
-public:
-    Ram(std::string romLocation, Logger *loggerPtr);
-    std::byte read(u16 address);
-    void write(u16 address, std::byte data);
-    std::string info();
-    ~Ram();
-};
+    class Ram
+    {
+    private:
+        std::vector<std::byte> storage;
+        std::string sections;
+        Logger *logger;
+        std::string subsystem;
+    public:
+        Ram(std::string romLocation, Logger *loggerPtr);
+        std::byte read(u16 address);
+        void write(u16 address, std::byte data);
+        std::string info();
+        ~Ram();
+    };
+}

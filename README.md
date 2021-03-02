@@ -1,5 +1,5 @@
 # gb-emu
-A WIP gameboy emu. Compile using `cmake` and `make`.
+A WIP gameboy emu. Compile using `make` and install using `sudo make install`
 
 # Goals
 

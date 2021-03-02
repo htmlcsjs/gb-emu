@@ -38,9 +38,3 @@ test.*
 # Logfiles
 log.*
 *.log
-
-# cmake stuff
-*.cmake
-Makefile
-CMakeFiles/*
-CMakeCache.txt

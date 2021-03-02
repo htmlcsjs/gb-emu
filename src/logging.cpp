@@ -1,23 +1,9 @@
-#include "logging.hpp"
 #include <fstream>
 #include <chrono>
 #include <ctime>
+#include "logging.hpp"
 
 Logger::Logger(std::string name, bool logToFile, int levelMin)
-{
-    init(name, logToFile, levelMin);
-}
-
-Logger::~Logger()
-{
-}
-
-Logger::Logger()
-{
-    initlised = false;
-}
-
-void Logger::init(std::string name, bool logToFile, int levelMin)
 {
     initlised = true;
     fileMode = logToFile;
@@ -35,6 +21,10 @@ void Logger::init(std::string name, bool logToFile, int levelMin)
         logFile.open(programName + ".log");
     }
     log(1, programName + " Logger", "Logging started");
+}
+
+Logger::~Logger()
+{
 }
 
 void Logger::log(int level, std::string section, std::string msg)

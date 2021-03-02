@@ -3,6 +3,7 @@
 #include <string>
 #include <sstream>
 #include "cpu.hpp"
+#include "logging.hpp"
 
 std::string name;
 

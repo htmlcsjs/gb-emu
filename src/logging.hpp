@@ -16,8 +16,6 @@ private:
     bool initlised;
 public:
     Logger(std::string name, bool logToFile = false, int levelMin = 1);
-    Logger();
-    void init(std::string name, bool logToFile = false, int levelMin = 1);
     ~Logger();
     void log(int level, std::string section, std::string msg);
 };

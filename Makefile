@@ -14,7 +14,7 @@ ram.o: ram.cpp
 
 utils.o: utils.cpp
 
-gb-emu.out: main.cpp logging.o cpu.o opcodes.o ram.o utils.o
+gb-emu.out: main.cpp logging.o opcodes.o cpu.o ram.o utils.o
 	$(CXX) $(CXXFLAGS) -o gb-emu.out $^ $(LDFLAGS)
 
 install: main.cpp

@@ -20,6 +20,10 @@ namespace emulator
         int LD_r8_mem_r16(u8 &lower_r16, u8 &upper_r16, u8 &r8, Ram *ram);
         int DEC_r16(u8 &lower_r16, u8 &upper_r16);
         int RRCA(u8 &r8, u8 &flags);
+        int STOP(Ram *ram);
+        int RLA(u8 &r8, u8 &flags);
+        u16 JR_e8(Ram *ram, u16 PC);
+        int RRA(u8 &r8, u8 &flags);
         u16 JP_u16(Ram *ram, u16 PC);
     }
 }

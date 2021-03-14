@@ -16,13 +16,14 @@ namespace emulator
     private:
         std::vector<std::byte> storage;
         std::string sections;
+        std::string abbreviations;
         Logger *logger;
         std::string subsystem;
     public:
         Ram(std::string romLocation, Logger *loggerPtr);
         std::byte read(u16 address);
         void write(u16 address, std::byte data);
-        std::string info();
+        std::string info(std::string type);
         ~Ram();
     };
 }

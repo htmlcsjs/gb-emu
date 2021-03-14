@@ -83,136 +83,137 @@ uint16_t emulator::Cpu::getPC()
 
 void emulator::Cpu::loop() // Main loop function;
 {
+    using namespace emulator;
 
     // Main switch case for interpreting the opcode
     switch ((int)ram->read(PC))
     {
     case 0x00: // NOP
-        PC += emulator::opcodes::NOP();
+        PC += opcodes::NOP();
         break;
 
     case 0x01: // LD BC,u16
-        PC += emulator::opcodes::LD_r16_u16(regC, regB, ram, PC);
+        PC += opcodes::LD_r16_u16(regC, regB, ram, PC);
         break;
 
     case 0x02: // LD (BC),A
-        PC += emulator::opcodes::LD_mem_r16_r8(regC, regB, regA, ram);
+        PC += opcodes::LD_mem_r16_r8(regC, regB, regA, ram);
         break;
 
     case 0x03: // INC BC
-        PC += emulator::opcodes::INC_r16(regC, regB);
+        PC += opcodes::INC_r16(regC, regB);
         break;
 
     case 0x04: // INC B
-        PC += emulator::opcodes::INC_r8(regB, flags);
+        PC += opcodes::INC_r8(regB, flags);
         break;
 
     case 0x05: // DEC B
-        PC += emulator::opcodes::DEC_r8(regB, flags);
+        PC += opcodes::DEC_r8(regB, flags);
         break;
 
     case 0x06: // LD B,u8
-        PC += emulator::opcodes::LD_r8_u8(regB, ram, PC);
+        PC += opcodes::LD_r8_u8(regB, ram, PC);
         break;
 
     case 0x07: // RLCA
-        PC += emulator::opcodes::RLCA(regA, flags);
+        PC += opcodes::RLCA(regA, flags);
         break;
 
     case 0x08: // LD u16, SP
-        PC += emulator::opcodes::LD_u16_SP(SP, ram, PC);
+        PC += opcodes::LD_u16_SP(SP, ram, PC);
         break;
 
     case 0x09: // ADD HL,BC
-        PC += emulator::opcodes::ADD_HL_r16(regC, regB, regH, regL, flags);
+        PC += opcodes::ADD_HL_r16(regC, regB, regH, regL, flags);
         break;
 
     case 0x0a: // LD A,(BC)
-        PC += emulator::opcodes::LD_r8_mem_r16(regC, regB, regA, ram);
+        PC += opcodes::LD_r8_mem_r16(regC, regB, regA, ram);
         break;
 
     case 0x0b: // DEC BC
-        PC += emulator::opcodes::DEC_r16(regC, regB);
+        PC += opcodes::DEC_r16(regC, regB);
         break;
 
     case 0x0c: // INC C
-        PC += emulator::opcodes::INC_r8(regC, flags);
+        PC += opcodes::INC_r8(regC, flags);
         break;
 
     case 0x0d: // DEC C
-        PC += emulator::opcodes::DEC_r8(regC, flags);
+        PC += opcodes::DEC_r8(regC, flags);
         break;
 
     case 0x0e: // LD C,u8
-        PC += emulator::opcodes::LD_r8_u8(regC, ram, PC);
+        PC += opcodes::LD_r8_u8(regC, ram, PC);
         break;
 
     case 0x0f: // RRCA
-        PC += emulator::opcodes::RRCA(regA, flags);
+        PC += opcodes::RRCA(regA, flags);
         break;
 
-    case 0x10:
-        PC += 1;
+    case 0x10: // STOP
+        PC += opcodes::STOP(ram);
         break;
 
-    case 0x11:
-        PC += 1;
+    case 0x11: // LD DE,u16
+        PC += opcodes::LD_r16_u16(regE, regD, ram, PC);
         break;
 
-    case 0x12:
-        PC += 1;
+    case 0x12: // LD (DE),A
+        PC += opcodes::LD_mem_r16_r8(regE, regD, regA, ram);
         break;
 
-    case 0x13:
-        PC += 1;
+    case 0x13: // INC DC
+        PC += opcodes::INC_r16(regE, regD);
         break;
 
-    case 0x14:
-        PC += 1;
+    case 0x14: // INC D
+        PC += opcodes::INC_r8(regD, flags);
         break;
 
-    case 0x15:
-        PC += 1;
+    case 0x15: // DEC D
+        PC += opcodes::DEC_r8(regD, flags);
         break;
 
-    case 0x16:
-        PC += 1;
+    case 0x16: // LD D,u8
+        PC += opcodes::LD_r8_u8(regD, ram, PC);
         break;
 
-    case 0x17:
-        PC += 1;
+    case 0x17: // RLA
+        PC += opcodes::RLA(regA, flags);
         break;
 
-    case 0x18:
-        PC += 1;
+    case 0x18: // JR e8
+        PC = opcodes::JR_e8(ram, PC);
         break;
 
-    case 0x19:
-        PC += 1;
+    case 0x19: // ADD HL,DE
+        PC += opcodes::ADD_HL_r16(regE, regD, regH, regL, flags);
         break;
 
-    case 0x1a:
-        PC += 1;
+    case 0x1a: // LD A,(DE)
+        PC += opcodes::LD_r8_mem_r16(regE, regD, regA, ram);
         break;
 
-    case 0x1b:
-        PC += 1;
+    case 0x1b: // DEC DE
+        PC += opcodes::DEC_r16(regE, regD);
         break;
 
-    case 0x1c:
-        PC += 1;
+    case 0x1c: // INC E
+        PC += opcodes::INC_r8(regE, flags);
         break;
 
-    case 0x1d:
-        PC += 1;
+    case 0x1d: // DEC E
+        PC += opcodes::DEC_r8(regE, flags);
         break;
 
-    case 0x1e:
-        PC += 1;
+    case 0x1e: // LD E,u8
+        PC += opcodes::LD_r8_u8(regE, ram, PC);
         break;
 
-    case 0x1f:
-        PC += 1;
+    case 0x1f: // RRA
+        PC += opcodes::RRA(regA, flags);
         break;
 
     case 0x20:
@@ -868,7 +869,7 @@ void emulator::Cpu::loop() // Main loop function;
         break;
 
     case 0xc3: // JP u16
-        PC = emulator::opcodes::JP_u16(ram, PC);
+        PC = opcodes::JP_u16(ram, PC);
         logger->log(0, subsystem, "Jumping to: " + intToHexString(PC));
         break;
 

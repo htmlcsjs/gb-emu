@@ -21,6 +21,12 @@ emulator::Ram::Ram(std::string romLocation, Logger *loggerPtr)
                "0xFF00-0xFF7F: I/O Registers\n"
                "0xFF80-0xFFFE: High Ram\n"
                "0xFFFF-0xFFFF: Interrupts Enable Register (IE)";
+    abbreviations = "r8 - Any of the 8-bit registers (A, B, C, D, E, H, L).\n"
+                    "r16 - Any of the general-purpose 16-bit registers (BC, DE, HL).\n"
+                    "u8  - 8-bit integer constant.\n"
+                    "u16 - 16-bit integer constant.\n"
+                    "e8  - 8-bit offset (-128 to 127).\n"
+                    "u3  - 3-bit unsigned integer constant (0 to 7).\n";
     // Init logger
     logger = loggerPtr;
     subsystem = "RAM subsystem";
@@ -34,9 +40,9 @@ emulator::Ram::Ram(std::string romLocation, Logger *loggerPtr)
     logger->log(1, subsystem, msg);
 
     // Open the ROM file so we can read the size from it.
-    std::ifstream romForSize(romLocation, std::ios::binary | std::ios::ate);
-    long length = romForSize.tellg()-1;
-    romForSize.close();
+    std::ifstream sizeRom(romLocation, std::ios::binary | std::ios::ate);
+    long length = sizeRom.tellg()-1;
+    sizeRom.close();
 
     // If the ROM is too thicc for the address bus, cancel execution
     if (length != 0x7fff)
@@ -66,9 +72,16 @@ emulator::Ram::Ram(std::string romLocation, Logger *loggerPtr)
     }   
 }
 
-std::string emulator::Ram::info()
+std::string emulator::Ram::info(std::string type)
 {
-    return sections;
+    if (type == "sections")
+    {
+        return sections;
+    }
+    else if (type == "abbr")
+    {
+        return abbreviations;
+    }   
 }
 
 std::byte emulator::Ram::read(u16 address)

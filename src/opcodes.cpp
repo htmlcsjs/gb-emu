@@ -170,7 +170,7 @@ int opcodes::STOP(Ram *ram)
     return 2;
 }
 
-int RLA(u8 &r8, u8 &flags)
+int opcodes::RLA(u8 &r8, u8 &flags)
 {
     if ((r8 & 0x80) == 0x80)
     {
@@ -184,7 +184,7 @@ int RLA(u8 &r8, u8 &flags)
     return 1;
 }
 
-u16 JR_e8(Ram *ram, u16 PC)
+u16 opcodes::JR_e8(Ram *ram, u16 PC)
 {
     u16 jmpAddress = PC + (int)ram->read(PC+1);
     return jmpAddress;

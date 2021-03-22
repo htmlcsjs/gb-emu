@@ -22,7 +22,7 @@ namespace emulator
         int RRCA(u8 &r8, u8 &flags);
         int STOP(Ram *ram);
         int RLA(u8 &r8, u8 &flags);
-        u16 JR_e8(Ram *ram, u16 PC);
+        u16 JR_cc_e8(Ram *ram, u16 PC, bool condidtion);
         int RRA(u8 &r8, u8 &flags);
         u16 JP_u16(Ram *ram, u16 PC);
     }

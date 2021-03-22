@@ -184,10 +184,17 @@ int opcodes::RLA(u8 &r8, u8 &flags)
     return 1;
 }
 
-u16 opcodes::JR_e8(Ram *ram, u16 PC)
+u16 opcodes::JR_cc_e8(Ram *ram, u16 PC, bool condition)
 {
-    u16 jmpAddress = PC + (int)ram->read(PC+1);
-    return jmpAddress;
+    if (condition)
+    {
+        u16 jmpAddress = PC + (int)ram->read(PC+1);
+        return jmpAddress;
+    } 
+    else
+    {
+        return PC + 2;
+    }
 }
 
 int opcodes::RRA(u8 &r8, u8 &flags)

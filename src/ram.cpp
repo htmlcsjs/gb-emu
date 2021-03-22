@@ -34,7 +34,7 @@ emulator::Ram::Ram(std::string romLocation, Logger *loggerPtr)
     // Initalise the whole bus with 0x00
     for (size_t i = 0; i < 0xffff; i++)
     {
-        storage.push_back((std::byte) 0x69);
+        storage.push_back((std::byte) 0x00);
     }
     std::string msg = "RAM size is: " + std::to_string(storage.size()) + " bytes";
     logger->log(1, subsystem, msg);
@@ -94,7 +94,7 @@ std::byte emulator::Ram::read(u16 address)
     else if (address <= 0xfea0 && address >= 0xfeff)
     {
         return (std::byte)0x00;
-        logger->log(2, subsystem, "Something tried to acsess a invaled place in memory");
+        logger->log(2, subsystem, "Something tried to acsess a invalid place in memory");
     }
     
     return storage[address];
@@ -102,11 +102,10 @@ std::byte emulator::Ram::read(u16 address)
 
 void emulator::Ram::write(u16 address, std::byte data)
 {
-    // print to the console corrospnding to the GPU
+    // print serial data to the console
     if (address == 0xFF02 && data == (std::byte)0x81)
     {
         std::string charStr(1, (char)read(0xff01));
-        //logger->log(1, subsystem, charStr);
         std::cout << charStr;
     }
     storage[address] = data;

@@ -29,6 +29,13 @@ namespace emulator
         u16 PC;
         u16 SP;
 
+        // Flag constants
+
+        u8 flagZ;
+        u8 flagN;
+        u8 flagH;
+        u8 flagC;
+
     public:
 
         Cpu(Ram* ramPtr, Logger * loggerPtr);

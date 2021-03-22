@@ -21,6 +21,11 @@ emulator::Cpu::Cpu(Ram *ramPtr, Logger *loggerPointer)
     SP = 0x0000;
     PC = 0x0100;
 
+    // Flag constants
+    flagZ = 0b10000000;
+    flagN = 0b01000000;
+    flagH = 0b00100000;
+    flagC = 0b00010000;
 }
 
 emulator::Cpu::~Cpu()
@@ -164,7 +169,7 @@ void emulator::Cpu::loop() // Main loop function;
         PC += opcodes::LD_mem_r16_r8(regE, regD, regA, ram);
         break;
 
-    case 0x13: // INC DC
+    case 0x13: // INC DE
         PC += opcodes::INC_r16(regE, regD);
         break;
 
@@ -185,7 +190,7 @@ void emulator::Cpu::loop() // Main loop function;
         break;
 
     case 0x18: // JR e8
-        PC = opcodes::JR_e8(ram, PC);
+        PC = opcodes::JR_cc_e8(ram, PC, true);
         break;
 
     case 0x19: // ADD HL,DE
@@ -216,64 +221,68 @@ void emulator::Cpu::loop() // Main loop function;
         PC += opcodes::RRA(regA, flags);
         break;
 
-    case 0x20:
+    case 0x20: // JR NZ,e8
+        PC = opcodes::JR_cc_e8(ram, PC, ((flags & flagZ) == 0));
+        break;
+
+    case 0x21: // LD HL,u16
+        PC += opcodes::LD_r16_u16(regL, regH, ram, PC);
+        break;
+
+    case 0x22: // LD (HL+),A
+        opcodes::INC_r16(regL, regH);
+        PC += opcodes::LD_mem_r16_r8(regL, regH, regA, ram);
+        opcodes::DEC_r16(regL, regH);
+        break;
+
+    case 0x23: // INC HL
+        PC += opcodes::INC_r16(regL, regH);
+        break;
+
+    case 0x24: // INC H
+        PC += opcodes::INC_r8(regH, flags);
+        break;
+
+    case 0x25: // DEC H
+        PC += opcodes::DEC_r8(regH, flags);
+        break;
+
+    case 0x26: // LD H,u8
+        PC += opcodes::LD_r8_u8(regH, ram, PC);
+        break;
+
+    case 0x27: // TODO DAA
         PC += 1;
         break;
 
-    case 0x21:
-        PC += 1;
+    case 0x28: // JR Z,e8
+        PC = PC = opcodes::JR_cc_e8(ram, PC, ((flags & flagZ) == flagZ));
         break;
 
-    case 0x22:
-        PC += 1;
+    case 0x29: // ADD HL,HL
+        PC += opcodes::ADD_HL_r16(regL, regH, regH, regL, flags);
         break;
 
-    case 0x23:
-        PC += 1;
+    case 0x2a: // LD A,(HL+)
+        opcodes::INC_r16(regL, regH);
+        PC += opcodes::LD_r8_mem_r16(regL, regH, regA, ram);
+        opcodes::DEC_r16(regL, regH);
         break;
 
-    case 0x24:
-        PC += 1;
+    case 0x2b: // DEC HL
+        PC += opcodes::DEC_r16(regL, regH);
         break;
 
-    case 0x25:
-        PC += 1;
+    case 0x2c: // INC L
+        PC += opcodes::INC_r8(regL, flags);
         break;
 
-    case 0x26:
-        PC += 1;
+    case 0x2d: // DEC L
+        PC += opcodes::DEC_r8(regL, flags);
         break;
 
-    case 0x27:
-        PC += 1;
-        break;
-
-    case 0x28:
-        PC += 1;
-        break;
-
-    case 0x29:
-        PC += 1;
-        break;
-
-    case 0x2a:
-        PC += 1;
-        break;
-
-    case 0x2b:
-        PC += 1;
-        break;
-
-    case 0x2c:
-        PC += 1;
-        break;
-
-    case 0x2d:
-        PC += 1;
-        break;
-
-    case 0x2e:
-        PC += 1;
+    case 0x2e: // LD L,u8
+        PC += opcodes::LD_r8_u8(regL, ram, PC);
         break;
 
     case 0x2f:
